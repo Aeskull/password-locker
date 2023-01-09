@@ -58,6 +58,8 @@ impl PasswordFile {
         })
     }
 
+    pub fn is_empty(&self) -> bool { self.data.is_empty() } 
+
     pub fn seek_entry(&self) {
         let mut pwes = Vec::<PWEntry>::new();
         for entry in &self.data {

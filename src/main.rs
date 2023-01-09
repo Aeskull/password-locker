@@ -10,9 +10,11 @@ fn main() -> Result<()> {
             break
         };
         if let Err(_) = pwf.dec() {
-            println!("{}", format!("Incorrect Password!").red());
-            pwf.close(false);
-            continue
+            if !pwf.is_empty() {
+                println!("{}", format!("Incorrect Password!").red());
+                pwf.close(false);
+                continue
+            }
         }
         if menu(&mut pwf)? == false {
             pwf.del()?;
