@@ -1,10 +1,9 @@
-use aead_io::{ArrayBuffer, DecryptBE32BufReader, EncryptBE32BufWriter};
-use chacha20poly1305::ChaCha20Poly1305;
-
 use crate::prelude::*;
 use std::collections::BTreeMap;
 use std::fs::{remove_file, File};
 use std::io::{Read, Seek, Write};
+use aead_io::{ArrayBuffer, DecryptBE32BufReader, EncryptBE32BufWriter};
+use chacha20poly1305::ChaCha20Poly1305;
 
 pub struct PasswordFile {
     file: File,
