@@ -26,7 +26,7 @@ fn main() -> Result<()> {
 
 fn menu(pwf: &mut PasswordFile) -> Result<bool> {
     lazy_static! {
-        static ref MENU: Vec<&'static str> = vec!["Seek", "Add", "Edit", "Delete", "DELETE FILE"];
+        static ref MENU: Vec<&'static str> = vec!["Seek", "Add", "Edit", "Delete Entry", "DELETE FILE"];
     };
     loop {
         let choice = Select::new("What would you like to do?", MENU.to_vec())
