@@ -2,6 +2,7 @@ pub use crate::password_file::*;
 pub use crate::pw_entry::*;
 pub use inquire::{Password, Select, Text};
 pub use lazy_static::lazy_static;
+pub use colored::Colorize;
 
 pub type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
 

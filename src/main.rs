@@ -10,7 +10,7 @@ fn main() -> Result<()> {
             break
         };
         if let Err(_) = pwf.dec() {
-            println!("Incorrect password");
+            println!("{}", format!("Incorrect Password!").red());
             pwf.close(false);
             continue
         }
@@ -26,7 +26,7 @@ fn main() -> Result<()> {
 
 fn menu(pwf: &mut PasswordFile) -> Result<bool> {
     lazy_static! {
-        static ref MENU: Vec<&'static str> = vec!["Seek", "Add", "Edit", "Delete", "DELETE FILE", "Back"];
+        static ref MENU: Vec<&'static str> = vec!["Seek", "Add", "Edit", "Delete", "DELETE FILE"];
     };
     loop {
         let choice = Select::new("What would you like to do?", MENU.to_vec())
@@ -36,10 +36,9 @@ fn menu(pwf: &mut PasswordFile) -> Result<bool> {
             "Seek" => pwf.seek_entry(),
             "Add" => pwf.add_entry(),
             "Edit" => pwf.edit_entry(),
-            "Delete" => pwf.delete_entry(),
+            "Delete Entry" => pwf.delete_entry(),
             "DELETE FILE" => return Ok(false),
-            "Back" => break,
-            _ => {}
+            _ => break
         }
     }
 

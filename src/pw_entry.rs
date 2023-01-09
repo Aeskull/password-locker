@@ -42,10 +42,16 @@ impl PWEntry {
 
     pub fn set_name(&mut self, other: String) {
         self.name = other;
+        self.update_time();
     }
 
     pub fn set_pass(&mut self, other: String) {
         self.password = other;
+        self.update_time();
+    }
+
+    fn update_time(&mut self) {
+        self.time = SystemTime::now();
     }
 }
 
@@ -59,7 +65,9 @@ impl std::cmp::PartialOrd for PWEntry {
     fn partial_cmp(&self, other: &Self) -> Option<std::cmp::Ordering> {
         match self.time.partial_cmp(&other.time) {
             Some(core::cmp::Ordering::Equal) => {}
-            ord => return ord,
+            Some(core::cmp::Ordering::Greater) => return Some(core::cmp::Ordering::Less),
+            Some(core::cmp::Ordering::Less) => return Some(core::cmp::Ordering::Greater),
+            ord => return ord
         }
         match self.name.partial_cmp(&other.name) {
             Some(core::cmp::Ordering::Equal) => {}

@@ -65,7 +65,7 @@ impl PasswordFile {
         }
 
         if pwes.len() == 0 {
-            println!("No entries found");
+            println!("{}", format!("No entries found").red());
             return
         }
 
@@ -74,7 +74,9 @@ impl PasswordFile {
         let choice = Select::new("Select the entry you wish to view:", options)
             .prompt()
             .unwrap_or_default();
-        let pwe = self.data.get(&choice).unwrap();
+        let Some(pwe) = self.data.get(&choice) else {
+            return
+        };
 
         println!("{}", pwe);
     }
@@ -94,7 +96,9 @@ impl PasswordFile {
         let choice = Select::new("Select the entry you wish to edit:", options)
             .prompt()
             .unwrap_or_default();
-        let pwe = self.data.get_mut(&choice).unwrap();
+        let Some(pwe) = self.data.get_mut(&choice) else {
+            return
+        };
 
         loop {
             match Select::new(
@@ -105,14 +109,14 @@ impl PasswordFile {
             {
                 Ok(s) => match s {
                     "Edit Name" => {
-                        let s = Text::new("Enter the new name").prompt().unwrap_or_default();
+                        let s = Text::new("Enter the new name:").prompt().unwrap_or_default();
                         pwe.set_name(s);
                     }
                     "Edit Password" => {
-                        let mut p = Password::new("Enter the new password");
+                        let mut p = Password::new("Enter the new password:");
                         p.enable_confirmation = false;
                         let s = p.prompt().unwrap_or_default();
-                        pwe.set_name(s);
+                        pwe.set_pass(s);
                     }
                     _ => break,
                 },
