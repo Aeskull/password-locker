@@ -4,6 +4,10 @@ pub mod password_file;
 pub mod prelude;
 pub mod pw_entry;
 
+lazy_static! {
+    static ref MENU: Vec<&'static str> = vec!["Seek", "Add", "Edit", "Delete Entry", "DELETE FILE"];
+}
+
 fn main() -> Result<()> {
     loop {
         let Ok(mut pwf) = open_file() else {
@@ -27,9 +31,6 @@ fn main() -> Result<()> {
 }
 
 fn menu(pwf: &mut PasswordFile) -> Result<bool> {
-    lazy_static! {
-        static ref MENU: Vec<&'static str> = vec!["Seek", "Add", "Edit", "Delete Entry", "DELETE FILE"];
-    };
     loop {
         let choice = Select::new("What would you like to do?", MENU.to_vec())
             .prompt_skippable()?
