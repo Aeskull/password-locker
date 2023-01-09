@@ -36,10 +36,18 @@ pub fn open_file() -> Result<PasswordFile> {
     if options.len() == 0 {
         let path = new_file()?;
         let pwf = PasswordFile::new(path)?;
-        return Ok(pwf);
+        return Ok(pwf)
     }
 
+    options.push("NEW".to_owned());
     let choice = Select::new("Select the file you wish to open:", options).prompt()?;
+
+    if &choice == "NEW" {
+        let path = new_file()?;
+        let pwf = PasswordFile::new(path)?;
+        return Ok(pwf)
+    }
+
     let path = format!("password_data/{}.pwf", choice);
     Ok(PasswordFile::open(path)?)
 }
