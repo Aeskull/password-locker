@@ -5,7 +5,7 @@ pub mod prelude;
 pub mod pw_entry;
 
 lazy_static! {
-    static ref MENU: Vec<&'static str> = vec!["Seek", "Add", "Edit", "Delete Entry", "DELETE FILE"];
+    static ref MENU: Vec<&'static str> = vec!["Seek", "Add Entry", "Edit Entry", "Delete Entry", "DELETE FILE"];
 }
 
 fn main() -> Result<()> {
@@ -37,8 +37,8 @@ fn menu(pwf: &mut PasswordFile) -> Result<bool> {
             .unwrap_or_default();
         match choice {
             "Seek" => pwf.seek_entry(),
-            "Add" => pwf.add_entry(),
-            "Edit" => pwf.edit_entry(),
+            "Add Entry" => pwf.add_entry(),
+            "Edit Entry" => pwf.edit_entry(),
             "Delete Entry" => pwf.delete_entry(),
             "DELETE FILE" => return Ok(false),
             _ => break
