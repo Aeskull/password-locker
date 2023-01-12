@@ -10,6 +10,7 @@ pub struct PasswordFile {
     path: String,
     key: Vec<u8>,
     data: BTreeMap<String, PWEntry>,
+    is_new: bool,
 }
 
 impl PasswordFile {
@@ -34,6 +35,7 @@ impl PasswordFile {
             path,
             key,
             data: BTreeMap::<String, PWEntry>::new(),
+            is_new: true,
         })
     }
 
@@ -54,10 +56,11 @@ impl PasswordFile {
             path,
             key,
             data: BTreeMap::<String, PWEntry>::new(),
+            is_new: false,
         })
     }
 
-    pub fn is_empty(&self) -> bool { self.data.is_empty() } 
+    pub fn is_new(&self) -> bool { self.is_new }
 
     pub fn seek_entry(&self) {
         let mut pwes = Vec::<PWEntry>::new();
@@ -153,6 +156,7 @@ impl PasswordFile {
             writer.write_all(&mut text)?;
             writer.flush()?;
         }
+        self.is_new = false;
         Ok(out)
     }
 

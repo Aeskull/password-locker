@@ -14,7 +14,7 @@ fn main() -> Result<()> {
             break
         };
         if let Err(_) = pwf.dec() {
-            if !pwf.is_empty() {
+            if !pwf.is_new() {
                 println!("{}", format!("Incorrect Password!").red());
                 pwf.close(false);
                 continue
