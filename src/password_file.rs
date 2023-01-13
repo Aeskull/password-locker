@@ -177,7 +177,7 @@ impl PasswordFile {
         Ok(())
     }
 
-    pub fn del(self) -> Result<()> {
+    pub fn del(&self) -> Result<()> {
         let mut pass = Password::new("Enter the password for this file:")
             .prompt()?
             .as_bytes()

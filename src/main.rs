@@ -21,7 +21,10 @@ fn main() -> Result<()> {
             }
         }
         if menu(&mut pwf)? == false {
-            pwf.del()?;
+            let Ok(_) = pwf.del() else {
+                pwf.close(true);
+                break
+            };
         } else {
             pwf.close(true);
         }
